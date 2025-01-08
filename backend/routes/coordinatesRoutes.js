@@ -160,9 +160,9 @@ router.put("/:id", authenticateToken, async (req, res) => {
 });
 
 // DELETE: Delete a coordinate by ID
-router.delete("/:id", authenticateToken, async (req, res) => {
+router.delete("/delete/:id", authenticateToken, async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params; // Get the id from req.params
     const userId = getUserId(req);
 
     if (!userId) {
@@ -172,7 +172,7 @@ router.delete("/:id", authenticateToken, async (req, res) => {
     const database = getDatabase();
     const coordinatesCollection = database.collection(COLLECTION_NAME);
 
-    const result = await coordinatesCollection.deleteOne({ _id: new ObjectId(id) });
+    const result = await coordinatesCollection.deleteOne({ measurementId: id });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ success: false, message: "Coordinate not found" });

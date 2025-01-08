@@ -8,7 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useCoordinatesDetails } from '@/context/coordinatesDetails';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-import { addCoordinate, getAllCoordinate } from '@/services/coordinates';
+import { addCoordinate, deleteCoordinate, getAllCoordinate } from '@/services/coordinates';
 import { v4 as uuidv4 } from 'uuid';
 import Drawer from '@mui/material/Drawer';
 
@@ -98,6 +98,30 @@ const Home = () => {
         draggable: true,
         progress: undefined,
       });
+    }
+  }
+
+  async function handleDeleteCoordinate(measurementId: string) {
+    try {
+      const response = await deleteCoordinate(measurementId);
+      if (response.message === 'Coordinate deleted successfully') {
+        toast.success(response.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          // closeOnClick: true,
+          // pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        updateCoordinates(null)
+        setIsDialogOpen(false)
+      }
+    } catch (err) {
+      console.error("Error deleting coordinate:", err);
+      // setError(err.message);
+    } finally {
+      // setLoading(false);
     }
   }
 
@@ -201,6 +225,7 @@ const Home = () => {
                     />
                   </div>
                   <div>
+                  { coordinatesData ? <>
                     {coordinatesData.map((coordinate: any, index: number) => (
                       <div key={coordinate.measurementId} className="mb-2">
                         <div>Measurement {index + 1}</div>
@@ -218,7 +243,7 @@ const Home = () => {
                           </button>
                           <button
                             onClick={() => {
-                              // setViewCoordinates(coordinate)
+                              handleDeleteCoordinate(coordinate.measurementId);
                             }}
                             className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
                           >
@@ -227,7 +252,8 @@ const Home = () => {
                         </div>
                       </div>
                     ))}
-
+                  </>
+                     : <div> No Data's found.</div>}
                   </div>
                 </div>
               </Drawer>

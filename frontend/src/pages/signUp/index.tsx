@@ -261,7 +261,7 @@ const SignUp = () => {
                                     </button>
                                 }
                             </form>
-                            <div className="flex flex-row justify-center gap-2">Already have a account? <div className="text-primary" onClick={() => router.push("/signIn")}>Login</div></div>
+                            <div className="flex flex-row justify-center gap-2">Already have a account? <div className="text-primary cursor-pointer underline" onClick={() => router.push("/signIn")}>Login</div></div>
                             {formData.type === 'User' ?
                                 <div className="flex flex-row justify-center ">
                                     <div></div>

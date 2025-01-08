@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Set up base URL and Axios instance
 const api = axios.create({
-   baseURL: 'https://sky-serve.onrender.com/api/coordinates',
+   baseURL: 'https://sky-serve-backend.vercel.app/api/coordinates',
   // baseURL: 'http://localhost:8080/api/coordinates', // replace with your backend API URL
   headers: {
     'Content-Type': 'application/json',
@@ -83,11 +83,9 @@ export const updateStatus = async (taskId: string, status: any) => {
 
 
 // Delete a note by ID
-export const deleteTask = async (taskId: any) => {
+export const deleteCoordinate = async (id: any) => {
   try {
-    const response = await api.delete('/deleteTask', {
-      params: { id: taskId }
-    });
+    const response = await api.delete(`/delete/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error deleting note:", error);
