@@ -101,7 +101,7 @@ async function googleAuth(req, res) {
     // Generate a custom JWT token for the user
     const token = jwt.sign({ id: user.userId, email: user.email, firstName: user.firstName, lastName: user.lastName, profilePicture: user.profilePicture,type: user.type }, JWT_SECRET, { expiresIn: JWT_EXPIRY });
     // res.redirect(`http://localhost:3000?token=${token}`);
-    res.redirect(`https://sky-serve-delta.vercel.app/?token=${token}`);
+    res.redirect(`https://sky-serve-delta.vercel.app?token=${token}`);
 
   } catch (error) {
     res.status(500).json({ error: "Error during Google authentication" });
