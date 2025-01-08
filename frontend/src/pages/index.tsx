@@ -81,6 +81,7 @@ const Home = () => {
             progress: undefined,
           });
           updateCoordinates(null)
+          getAllCoordinates(user.userId);
         }
       } catch (err) {
         console.error("Error adding coordinate:", err);
@@ -116,6 +117,7 @@ const Home = () => {
         });
         updateCoordinates(null)
         setIsDialogOpen(false)
+        getAllCoordinates(user.userId);
       }
     } catch (err) {
       console.error("Error deleting coordinate:", err);
@@ -124,6 +126,19 @@ const Home = () => {
       // setLoading(false);
     }
   }
+
+  const getAllCoordinates = async (id: string) => {
+    try {
+      const response = await getAllCoordinate(id);
+      console.log(response.data, "response")
+      if (response.success) {
+        setCoordinatesData(response.data)
+      }
+    } catch (err) {
+      console.error("Error adding coordinate:", err);
+    }
+  }
+
 
   useEffect(() => {
     if (token) {
@@ -179,18 +194,7 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    const getAllCoordinates = async (id: string) => {
-      try {
-        const response = await getAllCoordinate(id);
-        console.log(response.data, "response")
-        if (response.success) {
-          setCoordinatesData(response.data)
-        }
-      } catch (err) {
-        console.error("Error adding coordinate:", err);
-      }
-    }
-
+ 
     if (user?.userId) {
       getAllCoordinates(user.userId);
     }
@@ -318,7 +322,7 @@ const Home = () => {
             {viewCoordinates?.distance && (
               <p>Distance: {viewCoordinates?.distance} km</p>
             )}
-            {viewCoordinates?.area && <p>Area: {viewCoordinates?.area} km²</p>}
+            {<p>Area: {viewCoordinates?.area} km²</p>}
             <div className='flex justify-start items-center space-x-1'>
               <button
                 onClick={() => {  setViewCoordinates(null)}}
