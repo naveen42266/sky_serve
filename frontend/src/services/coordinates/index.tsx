@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Set up base URL and Axios instance
 const api = axios.create({
-   baseURL: 'https://sky-serve-backend.vercel.app/api/coordinates',
+   baseURL: 'https://sky-serve.onrender.com/api/coordinates',
   // baseURL: 'http://localhost:8080/api/coordinates', // replace with your backend API URL
   headers: {
     'Content-Type': 'application/json',
