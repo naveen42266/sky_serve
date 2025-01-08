@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://forex-news-backend.onrender.com/api/',
+  baseURL: 'https://sky-serve.onrender.com/api/',
   // baseURL: 'http://localhost:8080/api/', // replace with your backend API URL
   headers: {
     'Content-Type': 'application/json',
